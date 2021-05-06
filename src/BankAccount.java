@@ -1,29 +1,28 @@
 import java.util.Scanner;
+import java.util.Random;
 
 public class BankAccount {
-
     double balance;
     double previousTransaction;
     String customerName;
     String customerId;
 
-    BankAccount(String cname, String cid) {
+    BankAccount(String cname) {
         customerName = cname;
-        customerId = cid;
     }
 
     void deposit(double amount) {
-            balance = balance + amount;
-            previousTransaction = amount;
-            System.out.println("Deposit Successful");
-            System.out.println("Total available balance in your account = Rs." + balance);
+        balance = balance + amount;
+        previousTransaction = amount;
+        System.out.println("Deposit Successful");
+        System.out.println("Total available balance in your account is Rs." + balance);
     }
 
     void withdraw(double amount) {
-            balance = balance - amount;
-            previousTransaction = -amount;
-            System.out.println("Amount Successfully Withdrawn");
-            System.out.println("Total available balance in your account = Rs." + balance);
+        balance = balance - amount;
+        previousTransaction = -amount;
+        System.out.println("Amount Successfully Withdrawn");
+        System.out.println("Total available balance in your account is Rs." + balance);
     }
 
     void getPreviousTransaction() {
@@ -42,7 +41,10 @@ public class BankAccount {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Welcome " + customerName);
-        System.out.println("Your Id " + customerId);
+        customerId= Integer.toString(gen());
+        System.out.println("Your Generated Id is " + customerId);
+        System.out.println("*********************************");
+        System.out.println("*********************************");
 
         System.out.println("A: Check Your Balance");
         System.out.println("B: Deposit");
@@ -71,12 +73,12 @@ public class BankAccount {
                     System.out.println("--------------------------------");
 
                     double amount = scanner.nextDouble();
-                    while (amount <= 0){
+                    while (amount <= 0) {
                         System.out.println("Please enter a valid amount to deposit");
                         amount = scanner.nextDouble();
                     }
-                        deposit(amount);
-                        System.out.println("\n");
+                    deposit(amount);
+                    System.out.println("\n");
 
                     break;
 
@@ -86,11 +88,10 @@ public class BankAccount {
                     System.out.println("--------------------------------");
 
                     double amount2 = scanner.nextDouble();
-                    while(amount2 <= 0 || amount2 > balance){
-                        if (amount2 <= 0){
+                    while (amount2 <= 0 || amount2 > balance) {
+                        if (amount2 <= 0) {
                             System.out.println("Amount to be withdrawn must be greater than 0. Please try again.");
-                        }
-                        else {
+                        } else {
                             System.out.println("Not enough balance available in your account.Please enter a lesser value.");
                         }
                         amount2 = scanner.nextDouble();
@@ -119,4 +120,9 @@ public class BankAccount {
         while (option != 'E');
         System.out.println("Thank You for Using our Services.....!!");
     }
+    public int gen() {
+        Random r = new Random( System.currentTimeMillis() );
+        return 10000 + r.nextInt(99999);
+    }
+
 }
